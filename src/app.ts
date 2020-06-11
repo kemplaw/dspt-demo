@@ -1,1 +1,2 @@
-import './factoryMethodPattern'
+import './FactoryMethod'
+import './AbstractFactory'
