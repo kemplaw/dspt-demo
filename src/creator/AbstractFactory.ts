@@ -39,7 +39,7 @@ abstract class AbstractUILibrary {
 }
 
 // windows 下的 cell 类
-class WindowsCell implements Button {
+class WindowsCell implements Cell {
   color: string = 'defaultWindowsCell'
   style: object = { default: 'defaultWindowsCellStyle' }
   backgroundColor: string = 'defaultWindowsBackgroundColor'

@@ -1,48 +1,79 @@
 /**
- * @description: 工厂方法模式
+ * @description: 工厂方法模式实例
  */
 
-interface Product {
-  operation(): string
+//  抽象类
+interface Button {
+  style: object
+  label: string
+  onClick(): void
+  render(): void
 }
 
-class Product1 implements Product {
-  operation(): string {
-    return 'product 1'
+// 抽象类的具体实现
+class WindowsButton implements Button {
+  window = {
+    init: (style: object): void => {
+      console.log('window button is init')
+    }
+  }
+  style: object = { style: 'windowBorderStyle' }
+
+  constructor(public label: string) {}
+
+  onClick(): void {
+    console.log('windows button is clicked')
+  }
+
+  render() {
+    this.window.init(this.style)
   }
 }
 
-class Product2 implements Product {
-  operation(): string {
-    return 'product 2'
+class MacButton implements Button {
+  mac = {
+    init: (style: object): void => {
+      console.log('mac button is init')
+    }
+  }
+  style: object = { style: 'macBorderStyle' }
+
+  constructor(public label: string) {}
+
+  onClick(): void {
+    console.log('mac button is clicked')
+  }
+
+  render() {
+    this.mac.init(this.style)
   }
 }
 
-abstract class Creator {
-  abstract factoryMethod(): Product
+abstract class ButtonCreatorFactory {
+  abstract createButton(label: string): Button
 
-  someOperation(): string {
-    const product = this.factoryMethod()
-
-    return `create the new product ${product.operation()}`
+  renderButton(label: string) {
+    const button = this.createButton(label)
+    button.render()
+    button.onClick()
   }
 }
 
-class ProductCreator1 extends Creator {
-  factoryMethod(): Product {
-    return new Product1()
+class WindowsButtonCreatorFactory extends ButtonCreatorFactory {
+  createButton(label: string): Button {
+    return new WindowsButton(label)
   }
 }
 
-class ProductCreator2 extends Creator {
-  factoryMethod(): Product {
-    return new Product2()
+class MacButtonCreatorFactory extends ButtonCreatorFactory {
+  createButton(label: string): Button {
+    return new MacButton(label)
   }
 }
 
-function clientCode(creator: Creator) {
-  console.log(`prodcut operation in client ${creator.someOperation()}`)
+// 客户端代码
+function client(buttonCreator: ButtonCreatorFactory) {
+  buttonCreator.renderButton('按钮')
 }
 
-clientCode(new ProductCreator1())
-clientCode(new ProductCreator2())
+client(new WindowsButtonCreatorFactory())
