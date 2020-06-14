@@ -1,1 +1,1 @@
-import './factoryMethodPattern'
+import './creator/factoryMethod'

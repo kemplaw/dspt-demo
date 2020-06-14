@@ -1,3 +1,7 @@
+/**
+ * @description: 工厂方法模式
+ */
+
 interface Product {
   operation(): string
 }
